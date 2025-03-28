@@ -16,25 +16,58 @@ class _GaShaPonState extends State<GaShaPon> with TickerProviderStateMixin {
   late AnimationController _gaShaPonShakeController;
   late Animation<double> _gaShaPonShakeAnimation;
 
+  late AnimationController _capsuleScaleController;
+  late Animation<double> _capsuleScale;
+
+  bool _showCapsule = false;
+
   Color? _switchColor;
 
   void _onTap() {
     _gaShaPonShakeController.forward().then((_) {
+      setState(() {
+        _showCapsule = true;
+      });
       _gaShaPonShakeController.reverse();
+
+      _capsuleScaleController
+          .forward()
+          .then((_) => _capsuleScaleController.reverse())
+          .then((_) {
+            setState(() {
+              _showCapsule = false;
+            });
+          });
     });
   }
 
   @override
   void initState() {
     super.initState();
+    // 스위치 돌아가는 애니메이션 컨트롤러
     _switchController = AnimationController(
       vsync: this,
       duration: Duration(seconds: 2),
     )..repeat();
 
+    // 뽑기 흔들림 컨트롤러
     _gaShaPonShakeController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 300),
+    );
+
+    // 캡슐 크기 컨트롤러
+    _capsuleScaleController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 500),
+    );
+
+    // 캡슐 크기 애니메이션
+    _capsuleScale = Tween<double>(begin: 0.3, end: 3.5).animate(
+      CurvedAnimation(
+        parent: _capsuleScaleController,
+        curve: Curves.easeOutBack,
+      ),
     );
 
     _gaShaPonShakeAnimation = TweenSequence<double>([
@@ -48,6 +81,8 @@ class _GaShaPonState extends State<GaShaPon> with TickerProviderStateMixin {
   void dispose() {
     _switchController.dispose();
     _gaShaPonShakeController.dispose();
+    _capsuleScaleController.dispose();
+
     super.dispose();
   }
 
@@ -150,6 +185,19 @@ class _GaShaPonState extends State<GaShaPon> with TickerProviderStateMixin {
                           fit: BoxFit.contain,
                         ),
                       ),
+
+                      if (_showCapsule)
+                        Positioned(
+                          top: maxWidth * 0.9,
+                          child: ScaleTransition(
+                            scale: _capsuleScale,
+                            child: Assets.icons.capsule.image(
+                              width: maxWidth * 0.15,
+                              height: maxWidth * 0.13,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ),
                     ],
                   ),
                 ),
