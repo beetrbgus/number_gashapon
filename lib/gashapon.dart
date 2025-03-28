@@ -70,11 +70,11 @@ class _GaShaPonState extends State<GaShaPon> with TickerProviderStateMixin {
                 width: maxWidth,
                 height: maxWidth * 1.2,
                 child: AnimatedBuilder(
-                  animation: _gaShaPonShakeAnimation, // 🔹 애니메이션 값이 변경될 때마다 빌드
+                  animation: _gaShaPonShakeAnimation,
                   builder: (context, child) {
                     return Transform.rotate(
-                      angle: _gaShaPonShakeAnimation.value, // 🔹 흔들리는 애니메이션 적용
-                      origin: Offset(0, maxWidth / 2), // 🔹 아래쪽을 중심으로 회전
+                      angle: _gaShaPonShakeAnimation.value,
+                      origin: Offset(0, maxWidth / 2),
                       child: child,
                     );
                   },
