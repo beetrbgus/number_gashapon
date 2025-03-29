@@ -45,6 +45,9 @@ class _GaShaSettingScreenState extends State<GaShaSettingScreen> {
     super.dispose();
     _startNumberTextController.dispose();
     _endNumberTextController.dispose();
+
+    _startNumberFocusNode.dispose();
+    _endNumberFocusNode.dispose();
   }
 
   @override

@@ -29,6 +29,7 @@ dependencies:
   flutter_gen_runner: ^5.10.0
   build_runner: ^2.4.15
   flutter_svg: ^2.0.17
+  fluent_ui: ^4.11.2
 
 dev_dependencies:
   flutter_test:
