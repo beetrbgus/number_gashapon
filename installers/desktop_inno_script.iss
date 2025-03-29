@@ -32,7 +32,7 @@ DisableProgramGroupPage=yes
 ; Uncomment the following line to run in non administrative install mode (install for current user only).
 ;PrivilegesRequired=lowest
 OutputDir=C:\Users\beetr\StudioProjects\number_gashapon\installers
-OutputBaseFilename=mysetup
+OutputBaseFilename=GashaPon
 SetupIconFile=C:\Users\beetr\Desktop\포트폴리오\gashapon\gashapon_icon.ico
 SolidCompression=yes
 WizardStyle=modern
