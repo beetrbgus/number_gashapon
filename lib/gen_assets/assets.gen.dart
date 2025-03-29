@@ -23,8 +23,17 @@ class $AssetsIconsGen {
   AssetGenImage get gashapon =>
       const AssetGenImage('assets/icons/gashapon.png');
 
+  /// File path: assets/icons/setting_background.jpg
+  AssetGenImage get settingBackground =>
+      const AssetGenImage('assets/icons/setting_background.jpg');
+
   /// List of all assets
-  List<AssetGenImage> get values => [capsule, gaShaPonSwitch, gashapon];
+  List<AssetGenImage> get values => [
+    capsule,
+    gaShaPonSwitch,
+    gashapon,
+    settingBackground,
+  ];
 }
 
 class Assets {
