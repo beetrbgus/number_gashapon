@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:number_gashapon/gashapon.dart';
+import 'package:number_gashapon/gasha/presentation/gasha_setting_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.white70),
       ),
-      home: const GaShaPon(),
+      home: const GaShaSettingScreen(),
     );
   }
 }
