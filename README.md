@@ -1,5 +1,6 @@
-# number_gashapon
-![gashapon_icon.ico](..%2F..%2FDesktop%2F%C6%F7%C6%AE%C6%FA%B8%AE%BF%C0%2Fgashapon%2Fgashapon_icon.ico)
+# 랜덤 숫자 뽑기 - number_gashapon
+
+<img width="433" alt="gashapon_icon" src="https://github.com/user-attachments/assets/9583e4d6-2b00-4817-b002-692311c2b5db" />
 
 ## Getting Started
 
