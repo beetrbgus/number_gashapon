@@ -30,13 +30,16 @@ class _GaShaPonScreenState extends State<GaShaPonScreen>
   bool _showRandomNumber = false;
 
   Color? _switchColor;
+  final Random _random = Random();
 
   List<int> gaShaNumberList = [];
   int _randomNumber = 0;
 
+  late List<int> availableNumbers;
+
   void _onTap() {
-    _randomNumber = Random().nextInt(100) + 1;
-    gaShaNumberList.add(_randomNumber);
+    _pickRandomNumber();
+    if (availableNumbers.isEmpty) return;
 
     _gaShaPonShakeController.forward().then((_) {
       setState(() {
@@ -60,9 +63,34 @@ class _GaShaPonScreenState extends State<GaShaPonScreen>
     });
   }
 
+  void _pickRandomNumber() {
+    if (availableNumbers.isNotEmpty) {
+      int randomIndex = _random.nextInt(availableNumbers.length);
+      int pickedNumber = availableNumbers[randomIndex];
+
+      // 뽑은 숫자는 다시 나오지 않게 리스트에서 제거
+      setState(() {
+        _randomNumber = pickedNumber;
+        availableNumbers.removeAt(randomIndex);
+        gaShaNumberList.add(pickedNumber);
+      });
+    } else {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("뽑을 숫자가 없습니다!")));
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+
+    final gaShaSetting = widget.gaShaSetting;
+
+    availableNumbers = List.generate(
+      gaShaSetting.endNumber - gaShaSetting.startNumber + 1,
+      (index) => gaShaSetting.startNumber + index,
+    );
 
     // 스위치 돌아가는 애니메이션 컨트롤러
     _switchController = AnimationController(
