@@ -311,11 +311,11 @@ class _GaShaPonScreenState extends State<GaShaPonScreen>
                                     ),
                                   if (_showRandomNumber)
                                     Positioned(
-                                      top: maxWidth * 0.5,
+                                      top: maxWidth * 0.35,
                                       child: Text(
                                         '$_randomNumber',
-                                        style: TextStyle(
-                                          fontSize: 40,
+                                        style: AppTextTheme.headline1.copyWith(
+                                          fontSize: 45,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black,
                                         ),
