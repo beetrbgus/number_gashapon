@@ -45,7 +45,7 @@ class _GaShaPonScreenState extends State<GaShaPonScreen>
       return;
     }
 
-    _pickRandomNumber();
+    _pickRandomNumber(widget.gaShaSetting.isDuplicate);
 
     _gaShaPonShakeController.forward().then((_) {
       setState(() {
@@ -69,16 +69,24 @@ class _GaShaPonScreenState extends State<GaShaPonScreen>
     });
   }
 
-  void _pickRandomNumber() {
+  void _pickRandomNumber(bool isDuplicationAllow) {
     int randomIndex = _random.nextInt(availableNumbers.length);
     int pickedNumber = availableNumbers[randomIndex];
 
-    // 뽑은 숫자는 다시 나오지 않게 리스트에서 제거
-    setState(() {
-      _randomNumber = pickedNumber;
-      availableNumbers.removeAt(randomIndex);
-      gaShaNumberList.add(pickedNumber);
-    });
+    // 중복 허용일 경우 제거하지 않음.
+    if (isDuplicationAllow) {
+      setState(() {
+        _randomNumber = pickedNumber;
+        gaShaNumberList.add(pickedNumber);
+      });
+    } else {
+      // 허용하지 않으면 뽑은 숫자는 다시 나오지 않게 리스트에서 제거
+      setState(() {
+        _randomNumber = pickedNumber;
+        availableNumbers.removeAt(randomIndex);
+        gaShaNumberList.add(pickedNumber);
+      });
+    }
   }
 
   @override
