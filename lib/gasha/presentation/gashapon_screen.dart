@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:number_gashapon/core/design_system/styles/app_color.dart';
 import 'package:number_gashapon/core/design_system/styles/app_text_theme.dart';
 import 'package:number_gashapon/gasha/data/gasha_setting.dart';
 import 'package:number_gashapon/gasha/presentation/gasha_setting_screen.dart';
@@ -145,6 +146,7 @@ class _GaShaPonScreenState extends State<GaShaPonScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.white,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         centerTitle: true,
@@ -173,7 +175,7 @@ class _GaShaPonScreenState extends State<GaShaPonScreen>
       ),
       body: Column(
         children: [
-          Text("초기화"),
+          Text("Kim Bok Nam"),
           Padding(
             padding: const EdgeInsets.only(top: 30.0),
             child: LayoutBuilder(
