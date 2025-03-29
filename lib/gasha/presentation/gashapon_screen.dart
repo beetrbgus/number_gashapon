@@ -11,7 +11,7 @@ class GaShaPonScreen extends StatefulWidget {
   final GaShaSetting gaShaSetting;
   const GaShaPonScreen({super.key, required this.gaShaSetting});
 
-  final String title = "랜덤 숫자 뽑기";
+  final String title = "Boknam's 랜덤 숫자 뽑기";
 
   @override
   State<GaShaPonScreen> createState() => _GaShaPonScreenState();
@@ -46,6 +46,9 @@ class _GaShaPonScreenState extends State<GaShaPonScreen>
       return;
     }
 
+    setState(() {
+      _showRandomNumber = false;
+    });
     _pickRandomNumber(widget.gaShaSetting.isDuplicate);
 
     _gaShaPonShakeController.forward().then((_) {
@@ -174,42 +177,50 @@ class _GaShaPonScreenState extends State<GaShaPonScreen>
         ),
       ),
       body: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Text("Kim Bok Nam"),
-          Padding(
-            padding: const EdgeInsets.only(top: 30.0),
+          Flexible(
             child: LayoutBuilder(
               builder: (context, constraints) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Flexible(
-                      flex: 2,
-                      child: Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(12),
-                        margin: EdgeInsets.symmetric(vertical: 40),
-                        color: Colors.redAccent.withOpacity(0.2),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "뽑은 숫자",
-                              style: AppTextTheme.bodyLarge.copyWith(
-                                fontWeight: FontWeight.w700,
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Flexible(
+                        flex: 2,
+                        child: Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.all(12),
+                          margin: EdgeInsets.symmetric(vertical: 40),
+                          color: Colors.redAccent.withOpacity(0.2),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "뽑은 숫자",
+                                style: AppTextTheme.bodyLarge.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 8),
-                            Wrap(
-                              spacing: 12,
-                              runSpacing: 8, // 세로 간격
-                              children:
-                                  gaShaNumberList.map((pickedNumber) {
+                              SizedBox(height: 20),
+                              Flexible(
+                                child: GridView.builder(
+                                  scrollDirection: Axis.vertical,
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 5,
+                                        crossAxisSpacing: 12,
+                                        mainAxisSpacing: 8,
+                                      ),
+                                  itemCount: gaShaNumberList.length,
+                                  itemBuilder: (context, index) {
+                                    final pickedNumber = gaShaNumberList[index];
                                     return Container(
-                                      width: 40, // 숫자 칸 크기
-                                      height: 40,
+                                      width: 100,
+                                      height: 100,
                                       alignment: Alignment.center,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
@@ -227,118 +238,136 @@ class _GaShaPonScreenState extends State<GaShaPonScreen>
                                         style: AppTextTheme.bodyMedium,
                                       ),
                                     );
-                                  }).toList(),
-                            ),
-                          ],
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
 
-                    Flexible(
-                      flex: 2,
-                      child: LayoutBuilder(
-                        builder: (context, boxConstraints) {
-                          double maxWidth = min(boxConstraints.maxWidth, 400);
-                          double maxHeight =
-                              min(boxConstraints.maxHeight, 400) * 1.2;
+                      Flexible(
+                        flex: 2,
+                        child: LayoutBuilder(
+                          builder: (context, constraints) {
+                            final boxMaxWidth = constraints.maxWidth;
+                            final boxMaxHeight = constraints.maxHeight;
 
-                          double switchSize = maxWidth * 0.15;
+                            final gaShaPonSize =
+                                boxMaxWidth < boxMaxHeight
+                                    ? boxMaxWidth * 0.9
+                                    : boxMaxHeight * 0.7;
 
-                          return SizedBox(
-                            width: maxWidth,
-                            height: maxHeight,
-                            child: AnimatedBuilder(
-                              animation: _gaShaPonShakeAnimation,
-                              builder: (context, child) {
-                                return Transform.rotate(
-                                  angle: _gaShaPonShakeAnimation.value,
-                                  origin: Offset(0, maxWidth / 2),
-                                  child: child,
-                                );
-                              },
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  Assets.icons.gashapon.image(
-                                    width: maxWidth,
-                                    height: maxWidth,
-                                    fit: BoxFit.contain,
-                                  ),
-                                  Positioned(
-                                    top: maxHeight * 0.61,
-                                    left: maxWidth * 0.43,
-                                    child: MouseRegion(
-                                      onEnter: (event) {
-                                        setState(() {
-                                          _switchColor = Colors.amber
-                                              .withOpacity(0.05);
-                                        });
-                                      },
-                                      onExit: (event) {
-                                        setState(() {
-                                          _switchColor = null;
-                                        });
-                                      },
-                                      child: GestureDetector(
-                                        onTap: _onTap,
-                                        child: RotationTransition(
-                                          turns: _switchController,
-                                          child: Assets.icons.gaShaPonSwitch
-                                              .image(
-                                                width: switchSize,
-                                                height: switchSize,
-                                                fit: BoxFit.contain,
-                                                color: _switchColor
-                                                    ?.withOpacity(0.2),
-                                                colorBlendMode:
-                                                    BlendMode.srcATop,
+                            final shakeOffset =
+                                _gaShaPonShakeAnimation.value * gaShaPonSize;
+
+                            return Center(
+                              child: AnimatedBuilder(
+                                animation: _gaShaPonShakeController,
+                                builder: (context, child) {
+                                  return Transform.translate(
+                                    offset: Offset(shakeOffset, 0),
+                                    child: SizedBox(
+                                      width: gaShaPonSize,
+                                      height: gaShaPonSize * 1.5,
+                                      child: Stack(
+                                        alignment: Alignment.center,
+                                        clipBehavior: Clip.none,
+                                        children: [
+                                          // 뽑기 본체
+                                          Positioned(
+                                            bottom: 0,
+                                            child: Assets.icons.gashapon.image(
+                                              width: gaShaPonSize,
+                                              height: gaShaPonSize * 1.2,
+                                              fit: BoxFit.contain,
+                                            ),
+                                          ),
+
+                                          // 뽑기 손잡이
+                                          Positioned(
+                                            left: gaShaPonSize * 0.43,
+                                            bottom: gaShaPonSize * 0.27,
+                                            child: GestureDetector(
+                                              onTap: _onTap,
+                                              child: AnimatedBuilder(
+                                                animation: _switchController,
+                                                builder: (context, child) {
+                                                  final switchSize =
+                                                      gaShaPonSize * 0.15;
+                                                  return Transform.rotate(
+                                                    angle:
+                                                        _switchController
+                                                            .value *
+                                                        2 *
+                                                        pi,
+                                                    child: Assets
+                                                        .icons
+                                                        .gaShaPonSwitch
+                                                        .image(
+                                                          width: switchSize,
+                                                          height: switchSize,
+                                                          fit: BoxFit.contain,
+                                                        ),
+                                                  );
+                                                },
                                               ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: maxWidth * 1.05,
-                                    left: maxWidth * 0.3,
-                                    child: Assets.icons.capsule.image(
-                                      width: maxWidth * 0.15,
-                                      height: maxWidth * 0.13,
-                                      fit: BoxFit.contain,
-                                    ),
-                                  ),
+                                            ),
+                                          ),
 
-                                  if (_showCapsule)
-                                    Positioned(
-                                      top: maxWidth * 0.9,
-                                      child: ScaleTransition(
-                                        scale: _capsuleScale,
-                                        child: Assets.icons.capsule.image(
-                                          width: switchSize,
-                                          height: maxWidth * 0.13,
-                                          fit: BoxFit.contain,
-                                        ),
+                                          // 뽑기 본체 하단 캡슐
+                                          Positioned(
+                                            left: gaShaPonSize * 0.23,
+                                            bottom: -20,
+                                            child: Assets.icons.capsule.image(
+                                              width: gaShaPonSize * 0.15,
+                                              height: gaShaPonSize * 0.15,
+                                              fit: BoxFit.contain,
+                                            ),
+                                          ),
+                                          // 캡슐 나오는 이미지
+                                          if (_showCapsule)
+                                            Positioned(
+                                              top: gaShaPonSize * 0.9,
+                                              child: ScaleTransition(
+                                                scale: _capsuleScale,
+                                                child: Assets.icons.capsule
+                                                    .image(
+                                                      width:
+                                                          gaShaPonSize * 0.15,
+                                                      height:
+                                                          gaShaPonSize * 0.13,
+                                                      fit: BoxFit.contain,
+                                                    ),
+                                              ),
+                                            ),
+
+                                          // 뽑은 랜덤 숫자 표시
+                                          if (_showRandomNumber)
+                                            Positioned(
+                                              left: gaShaPonSize * 0.45,
+                                              bottom: gaShaPonSize * 0.55,
+                                              child: SizedBox(
+                                                width: gaShaPonSize * 0.4,
+                                                height: gaShaPonSize * 0.4,
+                                                child: Text(
+                                                  "$_randomNumber",
+                                                  style: AppTextTheme.headline2,
+                                                ),
+                                              ),
+                                            ),
+                                        ],
                                       ),
                                     ),
-                                  if (_showRandomNumber)
-                                    Positioned(
-                                      top: maxWidth * 0.35,
-                                      child: Text(
-                                        '$_randomNumber',
-                                        style: AppTextTheme.headline1.copyWith(
-                                          fontSize: 45,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ),
-                                ],
+                                  );
+                                },
                               ),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 );
               },
             ),
