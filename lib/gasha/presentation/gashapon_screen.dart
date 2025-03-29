@@ -38,8 +38,14 @@ class _GaShaPonScreenState extends State<GaShaPonScreen>
   late List<int> availableNumbers;
 
   void _onTap() {
+    if (availableNumbers.isEmpty) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("뽑을 숫자가 없습니다!")));
+      return;
+    }
+
     _pickRandomNumber();
-    if (availableNumbers.isEmpty) return;
 
     _gaShaPonShakeController.forward().then((_) {
       setState(() {
@@ -64,21 +70,15 @@ class _GaShaPonScreenState extends State<GaShaPonScreen>
   }
 
   void _pickRandomNumber() {
-    if (availableNumbers.isNotEmpty) {
-      int randomIndex = _random.nextInt(availableNumbers.length);
-      int pickedNumber = availableNumbers[randomIndex];
+    int randomIndex = _random.nextInt(availableNumbers.length);
+    int pickedNumber = availableNumbers[randomIndex];
 
-      // 뽑은 숫자는 다시 나오지 않게 리스트에서 제거
-      setState(() {
-        _randomNumber = pickedNumber;
-        availableNumbers.removeAt(randomIndex);
-        gaShaNumberList.add(pickedNumber);
-      });
-    } else {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text("뽑을 숫자가 없습니다!")));
-    }
+    // 뽑은 숫자는 다시 나오지 않게 리스트에서 제거
+    setState(() {
+      _randomNumber = pickedNumber;
+      availableNumbers.removeAt(randomIndex);
+      gaShaNumberList.add(pickedNumber);
+    });
   }
 
   @override
