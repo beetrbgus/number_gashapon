@@ -1,6 +1,6 @@
 # 랜덤 숫자 뽑기 - number_gashapon
 
-<img width="433" alt="gashapon_icon" src="https://github.com/user-attachments/assets/9583e4d6-2b00-4817-b002-692311c2b5db" />
+<img width="230" height="200" alt="gashapon_icon" src="https://github.com/user-attachments/assets/9583e4d6-2b00-4817-b002-692311c2b5db" />
 
 ## Getting Started
 
