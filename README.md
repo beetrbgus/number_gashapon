@@ -1,6 +1,5 @@
 # number_gashapon
-
-A new Flutter project.
+![gashapon_icon.ico](..%2F..%2FDesktop%2F%C6%F7%C6%AE%C6%FA%B8%AE%BF%C0%2Fgashapon%2Fgashapon_icon.ico)
 
 ## Getting Started
 
