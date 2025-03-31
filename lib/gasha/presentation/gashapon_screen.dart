@@ -276,8 +276,9 @@ class _GaShaPonScreenState extends State<GaShaPonScreen>
                               child: AnimatedBuilder(
                                 animation: _gaShaPonShakeController,
                                 builder: (context, child) {
-                                  return Transform.translate(
-                                    offset: Offset(shakeOffset, 0),
+                                  return Transform.rotate(
+                                    angle: _gaShaPonShakeAnimation.value,
+                                    alignment: Alignment.bottomCenter,
                                     child: SizedBox(
                                       width: gaShaPonSize,
                                       height: gaShaPonSize * 1.5,
