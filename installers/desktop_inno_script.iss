@@ -33,7 +33,7 @@ DisableProgramGroupPage=yes
 ;PrivilegesRequired=lowest
 OutputDir=C:\Users\beetr\StudioProjects\number_gashapon\installers
 OutputBaseFilename=GashaPon
-SetupIconFile=C:\Users\beetr\Desktop\포트폴리오\gashapon\gashapon_icon.ico
+SetupIconFile=C:\Users\beetr\gashapon_icon.ico
 SolidCompression=yes
 WizardStyle=modern
 
@@ -50,8 +50,9 @@ Source: "C:\Users\beetr\StudioProjects\number_gashapon\build\windows\x64\runner\
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
-Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
+Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\gashapon_icon.ico"
+Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon; IconFilename: "{app}\gashapon_icon.ico"
+
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent

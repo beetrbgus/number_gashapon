@@ -29,6 +29,7 @@ class _GaShaPonScreenState extends State<GaShaPonScreen>
 
   bool _showCapsule = false;
   bool _showRandomNumber = false;
+  bool _isProcessing = false;
 
   Color? _switchColor;
   final Random _random = Random();
@@ -39,17 +40,22 @@ class _GaShaPonScreenState extends State<GaShaPonScreen>
   late List<int> availableNumbers;
 
   void _onTap() {
+    if (_isProcessing) return;
+    _isProcessing = true;
+
     if (availableNumbers.isEmpty) {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text("뽑을 숫자가 없습니다!")));
+      _isProcessing = false;
       return;
     }
 
     setState(() {
       _showRandomNumber = false;
     });
-    _pickRandomNumber(widget.gaShaSetting.isDuplicate);
+
+    int pickedNumber = _pickRandomNumber(widget.gaShaSetting.isDuplicate);
 
     _gaShaPonShakeController.forward().then((_) {
       setState(() {
@@ -61,19 +67,25 @@ class _GaShaPonScreenState extends State<GaShaPonScreen>
           .forward()
           .then((_) => _capsuleScaleController.reverse())
           .then((_) {
-            setState(() {
-              _showCapsule = false;
-            });
-          })
-          .then((_) {
-            setState(() {
-              _showRandomNumber = true;
-            });
-          });
+        setState(() {
+          _showCapsule = false;
+        });
+      })
+      .then((_) {
+        setState(() {
+          _showRandomNumber = true;
+        });
+      })
+      .then((_) {
+        setState(() {
+          gaShaNumberList.add(pickedNumber);
+        });
+      })
+      .then((_) => _isProcessing = false);
     });
   }
 
-  void _pickRandomNumber(bool isDuplicationAllow) {
+  int _pickRandomNumber(bool isDuplicationAllow) {
     int randomIndex = _random.nextInt(availableNumbers.length);
     int pickedNumber = availableNumbers[randomIndex];
 
@@ -81,16 +93,15 @@ class _GaShaPonScreenState extends State<GaShaPonScreen>
     if (isDuplicationAllow) {
       setState(() {
         _randomNumber = pickedNumber;
-        gaShaNumberList.add(pickedNumber);
       });
     } else {
       // 허용하지 않으면 뽑은 숫자는 다시 나오지 않게 리스트에서 제거
       setState(() {
         _randomNumber = pickedNumber;
         availableNumbers.removeAt(randomIndex);
-        gaShaNumberList.add(pickedNumber);
       });
     }
+    return pickedNumber;
   }
 
   @override
@@ -347,12 +358,15 @@ class _GaShaPonScreenState extends State<GaShaPonScreen>
                                             Positioned(
                                               left: gaShaPonSize * 0.45,
                                               bottom: gaShaPonSize * 0.55,
-                                              child: SizedBox(
-                                                width: gaShaPonSize * 0.4,
-                                                height: gaShaPonSize * 0.4,
-                                                child: Text(
-                                                  "$_randomNumber",
-                                                  style: AppTextTheme.headline2,
+                                              child: Center(
+                                                child: SizedBox(
+                                                  width: gaShaPonSize * 0.4,
+                                                  height: gaShaPonSize * 0.4,
+                                                  child: Text(
+                                                    "$_randomNumber",
+                                                    style:
+                                                        AppTextTheme.headline2,
+                                                  ),
                                                 ),
                                               ),
                                             ),
