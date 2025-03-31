@@ -218,38 +218,42 @@ class _GaShaPonScreenState extends State<GaShaPonScreen>
                               ),
                               SizedBox(height: 20),
                               Flexible(
-                                child: GridView.builder(
-                                  scrollDirection: Axis.vertical,
-                                  gridDelegate:
+                                child: Container(
+                                  width : 270,
+                                  height : 270,
+                                  child : GridView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      gridDelegate:
                                       SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 5,
                                         crossAxisSpacing: 12,
                                         mainAxisSpacing: 8,
                                       ),
-                                  itemCount: gaShaNumberList.length,
-                                  itemBuilder: (context, index) {
-                                    final pickedNumber = gaShaNumberList[index];
-                                    return Container(
-                                      width: 100,
-                                      height: 100,
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(8),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.black26,
-                                            blurRadius: 3,
-                                            offset: Offset(2, 2),
+                                      itemCount: gaShaNumberList.length,
+                                      itemBuilder: (context, index) {
+                                        final pickedNumber = gaShaNumberList[index];
+                                        return Container(
+                                          width: 50,
+                                          height: 50,
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.circular(8),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black26,
+                                                blurRadius: 3,
+                                                offset: Offset(2, 2),
+                                              ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
-                                      child: Text(
-                                        "$pickedNumber",
-                                        style: AppTextTheme.bodyMedium,
-                                      ),
-                                    );
-                                  },
+                                          child: Text(
+                                            "$pickedNumber",
+                                            style: AppTextTheme.bodyMedium,
+                                          ),
+                                        );
+                                      },
+                                    )
                                 ),
                               ),
                             ],
