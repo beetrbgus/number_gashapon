@@ -14,9 +14,9 @@
 그래서 중복 유무를 체크하고 시작 숫자와 종료 숫자가 있는 Window 용 App을 만들어봤습니다.
 
 ## 설치
-
-[Window용 설치](https://drive.google.com/file/d/1-hGKi7E9reK_hync7YE_Qg6_RYRAdFMS/view?usp=sharing)
-
+| 플랫폼 | 파일 | 다운로드 링크 |
+|--------|------|-------------|
+| Windows | `.exe` | [다운로드](https://github.com/beetrbgus/number_gashapon/releases/tag/1.0.3/gashapon_setup.exe) |
 
 ## ⭐ 주요 기능
 
