@@ -17,7 +17,7 @@
 
 | 플랫폼 | 파일 | 다운로드 링크 | 설치방법 | 
 |--------|------|-------------| ------------- | 
-| Windows | `.exe` | [다운로드](https://github.com/beetrbgus/number_gashapon/releases/tag/1.0.3/gashapon_setup.exe) | 다운로드 링크 클릭 후 gashapon_setup.exe 파일 클릭| 
+| Windows | `.exe` | [다운로드](https://github.com/beetrbgus/number_gashapon/releases/tag/1.0.4) | 다운로드 링크 클릭 후 gashapon_setup.exe 파일 클릭| 
 
 ## ⭐ 주요 기능
 
@@ -28,7 +28,8 @@
 ![image](https://github.com/user-attachments/assets/dfbb5629-2d6b-4d55-806e-d804dea15412)
 
 ## 🎞 Demo
-https://github.com/user-attachments/assets/8b0f4c58-6750-475f-98fa-6ad0428e67c0
+
+https://github.com/user-attachments/assets/b52efad5-526b-4503-9efc-15d0ee9b5c18
 
 
 
