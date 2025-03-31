@@ -180,10 +180,10 @@ class _GaShaSettingScreenState extends State<GaShaSettingScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [Assets.icons.settingBackground.image(height: 200)],
                 ),
-                // Text(
-                //   "copyright : devbeetrb0214@gmail.com",
-                //   style: AppTextTheme.bodySmall,
-                // ),
+                Text(
+                  "copyright : devbeetrb0214@gmail.com",
+                  style: AppTextTheme.bodySmall,
+                ),
               ],
             ),
           ),
