@@ -15,7 +15,7 @@
 
 ## 설치
 
-[Window용 설치](https://drive.google.com/file/d/1G6WCcEcD9CTT3jd0LkyRIlt7FsVcP0Ds/view?usp=sharing)
+[Window용 설치](https://drive.google.com/file/d/1-hGKi7E9reK_hync7YE_Qg6_RYRAdFMS/view?usp=sharing)
 
 
 ## ⭐ 주요 기능
