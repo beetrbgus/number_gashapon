@@ -67,21 +67,21 @@ class _GaShaPonScreenState extends State<GaShaPonScreen>
           .forward()
           .then((_) => _capsuleScaleController.reverse())
           .then((_) {
-        setState(() {
-          _showCapsule = false;
-        });
-      })
-      .then((_) {
-        setState(() {
-          _showRandomNumber = true;
-        });
-      })
-      .then((_) {
-        setState(() {
-          gaShaNumberList.add(pickedNumber);
-        });
-      })
-      .then((_) => _isProcessing = false);
+            setState(() {
+              _showCapsule = false;
+            });
+          })
+          .then((_) {
+            setState(() {
+              _showRandomNumber = true;
+            });
+          })
+          .then((_) {
+            setState(() {
+              gaShaNumberList.add(pickedNumber);
+            });
+          })
+          .then((_) => _isProcessing = false);
     });
   }
 
@@ -218,42 +218,45 @@ class _GaShaPonScreenState extends State<GaShaPonScreen>
                               ),
                               SizedBox(height: 20),
                               Flexible(
-                                child: Container(
-                                  width : 270,
-                                  height : 270,
-                                  child : GridView.builder(
-                                      scrollDirection: Axis.vertical,
-                                      gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 5,
-                                        crossAxisSpacing: 12,
-                                        mainAxisSpacing: 8,
-                                      ),
-                                      itemCount: gaShaNumberList.length,
-                                      itemBuilder: (context, index) {
-                                        final pickedNumber = gaShaNumberList[index];
-                                        return Container(
-                                          width: 50,
-                                          height: 50,
-                                          alignment: Alignment.center,
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.circular(8),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color: Colors.black26,
-                                                blurRadius: 3,
-                                                offset: Offset(2, 2),
-                                              ),
-                                            ],
+                                child: SizedBox(
+                                  width: 270,
+                                  height: 270,
+                                  child: GridView.builder(
+                                    scrollDirection: Axis.vertical,
+                                    gridDelegate:
+                                        SliverGridDelegateWithMaxCrossAxisExtent(
+                                          maxCrossAxisExtent: 35,
+                                          crossAxisSpacing: 12,
+                                          mainAxisSpacing: 8,
+                                        ),
+                                    itemCount: gaShaNumberList.length,
+                                    itemBuilder: (context, index) {
+                                      final pickedNumber =
+                                          gaShaNumberList[index];
+                                      return Container(
+                                        width: 50,
+                                        height: 50,
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(
+                                            8,
                                           ),
-                                          child: Text(
-                                            "$pickedNumber",
-                                            style: AppTextTheme.bodyMedium,
-                                          ),
-                                        );
-                                      },
-                                    )
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.black26,
+                                              blurRadius: 3,
+                                              offset: Offset(2, 2),
+                                            ),
+                                          ],
+                                        ),
+                                        child: Text(
+                                          "$pickedNumber",
+                                          style: AppTextTheme.bodyMedium,
+                                        ),
+                                      );
+                                    },
+                                  ),
                                 ),
                               ),
                             ],
@@ -370,7 +373,7 @@ class _GaShaPonScreenState extends State<GaShaPonScreen>
                                                   child: Text(
                                                     "$_randomNumber",
                                                     style:
-                                                        AppTextTheme.headline2,
+                                                        AppTextTheme.headline1,
                                                   ),
                                                 ),
                                               ),
